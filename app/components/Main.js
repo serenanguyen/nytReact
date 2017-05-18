@@ -9,17 +9,17 @@ var Saved = require("./children/Saved");
 var helpers = require("./utils/helpers");
 
 var Main = React.createClass({
-    getInitialState: function() {
-        return { search: [], results: [], saved: [] };
-    },
-    // the moment the page renders get saved
-    componentDidMount: function(){
-        helpers.getSaved().then(function(response){
-            if(response !== this.state.saved){
-                this.setState({saved: response.data})
-            }
-        }.bind(this));
-    },
+    // getInitialState: function() {
+    //     return { search: [], results: [], saved: [] };
+    // },
+    // // the moment the page renders get saved
+    // componentDidMount: function(){
+    //     helpers.getSaved().then(function(response){
+    //         if(response !== this.state.saved){
+    //             this.setState({saved: response.data})
+    //         }
+    //     }.bind(this));
+    // },
 
     render: function(){
         return (
@@ -30,15 +30,15 @@ var Main = React.createClass({
                 </div>
 
                 <div className="col-md-12">
-                    <Form setTerm={this.setTerm} />
+                    <Search  />
                 </div>
 
                 <div className="col-md-12">
-                    <Results setTerm={this.state.results} />
+                    <Results />
                 </div>
 
                 <div className="col-md-12">
-                    <Saved saved={this.state.saved} />
+                    <Saved  />
                 </div>
 
             </div>
