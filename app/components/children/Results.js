@@ -3,9 +3,8 @@ var helpers = require("../utils/helpers");
 
 var Results = React.createClass({
 
-    handleSave: function(event){
-        event.stopPropagation();
-        helpers.postArticle(this.props.results);
+    handleSave: function(result){
+        helpers.postArticle(result);
     },
     render: function(){
         return (
@@ -22,7 +21,7 @@ var Results = React.createClass({
                                 <br /> Publication Date: {result.pub_date}
                                 <span><button className="btn btn-primary btn-lg"
                                               type="button"
-                                              onClick={console.log("clicked")}
+                                              onClick={this.handleSave.bind(this, result)}
                                              >
                                     Save
                                 </button></span>

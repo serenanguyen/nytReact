@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
-var Article = require("./models/Article");
+var Article = require("./models/article");
 
 // Create a new express app
 var app = express();
@@ -37,8 +37,7 @@ app.get("/", function(req, res) {
 });
 
 app.get("/api", function(req, res){
-    Article.find({}).sort(["date", "descending"])
-    limit(5).exec(function(err, doc){
+    Article.find({}).exec(function(err, doc){
         if(err){
             console.log(err);
         } else {
@@ -50,8 +49,8 @@ app.get("/api", function(req, res){
 app.post("/api", function(req,res){
     console.log(req.body);
     Article.create({
-        title: req.body,
-        web_url: req.body,
+        title: req.body.title,
+        web_url: req.body.url,
         date: Date.now()
     }, function(err){
         if(err){

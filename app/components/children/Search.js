@@ -17,7 +17,6 @@ var Search = React.createClass({
 
         // set parent to have the search term
         this.props.setSearch({topic:this.state.topic, startYear:this.state.startYear, endYear:this.state.endYear});
-        // this.setState({topic:"",startDate:"",endDate:""});
     },
 
     render: function(){

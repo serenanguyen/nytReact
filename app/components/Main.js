@@ -13,12 +13,24 @@ var Main = React.createClass({
         return { search: [], results: [], saved: [] };
     },
 
+    componentDidMount: function(){
+        helpers.getSaved().then(function(response){
+            if(response !== this.state.saved){
+                this.setState({saved: response.data});
+            }
+        }.bind(this));
+    },
+
 
     componentDidUpdate: function(){
         helpers.runQuery(this.state.topic, this.state.startYear, this.state.endYear)
             .then(function(data){
                 if(data !== this.state.results){
                     this.setState({results: data});
+
+                    helpers.getSaved().then(function(response){
+                        this.setState({saved: response.data});
+                    }.bind(this));
                 }
             }.bind(this));
     },
@@ -46,11 +58,11 @@ var Main = React.createClass({
                 </div>
 
                 <div className="col-md-12">
-                    <Results results={this.state.results} />
+                    <Results results={this.state.results}/>
                 </div>
 
                 <div className="col-md-12">
-                    <Saved  />
+                    <Saved saved={this.state.saved}/>
                 </div>
 
             </div>

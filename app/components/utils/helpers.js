@@ -22,11 +22,10 @@ var helper ={
         });
     },
     postArticle: function(result){
-        console.log(result);
-        // return axios.post("/api", {
-        //     title: this.result.headline.main,
-        //     url: this.result.web_url
-        // });
+        return axios.post("/api", {
+            title: result.headline.main,
+            url: result.web_url
+        });
     },
 
 

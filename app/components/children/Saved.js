@@ -8,6 +8,11 @@ var Saved = React.createClass({
                     <h3 className="panel-title text-center">Saved Articles</h3>
                 </div>
                 <div className="panel-body text-center">
+                    {this.props.saved.map(function(search, i){
+                        return (
+                            <p key={i}>{search.title}</p>
+                        );
+                    })}
                 </div>
             </div>
         )
