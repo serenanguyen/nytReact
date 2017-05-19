@@ -4,6 +4,8 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
+var Article = require("./models/Article");
+
 // Create a new express app
 var app = express();
 // Sets an initial port for deployed or local
@@ -32,6 +34,32 @@ db.once("open", function() {
 // Main "/" Route. This will redirect the user to our rendered React application
 app.get("/", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
+});
+
+app.get("/api", function(req, res){
+    Article.find({}).sort(["date", "descending"])
+    limit(5).exec(function(err, doc){
+        if(err){
+            console.log(err);
+        } else {
+            res.send(doc);
+        }
+    });
+});
+
+app.post("/api", function(req,res){
+    console.log(req.body);
+    Article.create({
+        title: req.body,
+        web_url: req.body,
+        date: Date.now()
+    }, function(err){
+        if(err){
+            console.log(err);
+        } else {
+            res.send("Saved");
+        }
+    });
 });
 
 // Listener

@@ -9,17 +9,29 @@ var Saved = require("./children/Saved");
 var helpers = require("./utils/helpers");
 
 var Main = React.createClass({
-    // getInitialState: function() {
-    //     return { search: [], results: [], saved: [] };
-    // },
-    // // the moment the page renders get saved
-    // componentDidMount: function(){
-    //     helpers.getSaved().then(function(response){
-    //         if(response !== this.state.saved){
-    //             this.setState({saved: response.data})
-    //         }
-    //     }.bind(this));
-    // },
+    getInitialState: function() {
+        return { search: [], results: [], saved: [] };
+    },
+
+
+    componentDidUpdate: function(){
+        helpers.runQuery(this.state.topic, this.state.startYear, this.state.endYear)
+            .then(function(data){
+                if(data !== this.state.results){
+                    this.setState({results: data});
+                }
+            }.bind(this));
+    },
+
+    // allows children to update the parent
+    setSearch: function(topic, startYear, endYear){
+        this.setState({
+            topic: topic,
+            startYear: startYear,
+            endYear: endYear
+        });
+    },
+
 
     render: function(){
         return (
@@ -30,11 +42,11 @@ var Main = React.createClass({
                 </div>
 
                 <div className="col-md-12">
-                    <Search  />
+                    <Search  setSearch={this.setSearch}/>
                 </div>
 
                 <div className="col-md-12">
-                    <Results />
+                    <Results results={this.state.results} />
                 </div>
 
                 <div className="col-md-12">
