@@ -36,6 +36,7 @@ app.get("/", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
 });
 
+// get all articles when visiting /api
 app.get("/api", function(req, res){
     Article.find({}).exec(function(err, doc){
         if(err){
@@ -45,9 +46,8 @@ app.get("/api", function(req, res){
         }
     });
 });
-
+// posting saved article to /api
 app.post("/api", function(req,res){
-    console.log(req.body);
     Article.create({
         title: req.body.title,
         web_url: req.body.url,
@@ -57,6 +57,20 @@ app.post("/api", function(req,res){
             console.log(err);
         } else {
             res.send("Saved");
+        }
+    });
+});
+
+// delete saved article from /api
+app.delete("/api", function(req,res){
+    // use param for delete
+    var title = req.param('title');
+
+    Article.find({'title': title }).remove().exec(function(err, data){
+        if(err){
+            console.log(err);
+        } else{
+            res.send('Deleted');
         }
     });
 });

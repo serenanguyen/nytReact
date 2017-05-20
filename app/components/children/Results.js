@@ -5,6 +5,7 @@ var Results = React.createClass({
 
     handleSave: function(result){
         helpers.postArticle(result);
+        this.setState({saved: result});
     },
     render: function(){
         return (

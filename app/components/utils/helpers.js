@@ -31,6 +31,14 @@ var helper ={
 
     getSaved: function(){
         return axios.get("/api");
+    },
+
+    deleteArticle: function(result){
+        return axios.delete('/api', {
+            params: {
+                title: result
+            }
+        })
     }
 };
 
