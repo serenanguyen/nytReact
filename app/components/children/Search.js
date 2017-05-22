@@ -54,6 +54,7 @@ var Search = React.createClass({
                                    onChange={this.handleChange}
                                    required
                             />
+                            <br />
                             <button className="btn btn-primary"
                                     type="submit">
                                 Submit

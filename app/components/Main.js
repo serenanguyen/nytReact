@@ -83,18 +83,20 @@ var Main = React.createClass({
                 <div className="jumbotron">
                     <h1>NYT REACT</h1>
                     <h3>Search and Annotate Articles</h3>
+                    <a href="#/saved" className="btn btn-primary btn-lg">Saved Articles</a>
+                    <a href="#/search" className="btn btn-primary btn-lg">Search</a>
                 </div>
 
                 <div className="col-md-12">
-                    <Search  setSearch={this.setSearch}/>
+                <Search  setSearch={this.setSearch}/>
                 </div>
 
                 <div className="col-md-12">
-                    <Results results={this.state.results} handleSave={this.handleSave}/>
+                <Results results={this.state.results} handleSave={this.handleSave}/>
                 </div>
 
                 <div className="col-md-12">
-                    <Saved saved={this.state.saved} deleteArticle={this.deleteArticle}/>
+                <Saved saved={this.state.saved} deleteArticle={this.deleteArticle}/>
                 </div>
 
             </div>
