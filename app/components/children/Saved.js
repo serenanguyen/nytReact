@@ -9,13 +9,13 @@ var Saved = React.createClass({
                     <h3 className="panel-title text-center">Saved Articles</h3>
                 </div>
                 <div className="panel-body text-center">
-                    {this.props.saved.map(function(search, i){
+                    {this.props.saved.map(function(savedArticle, i){
                         return (
                             <div key={i}>
-                                <p>{search.title}</p>
+                                <a href={savedArticle.url} target="_blank">{savedArticle.title}</a>
                                 <span><button className="btn btn-primary btn-lg"
                                     type="button"
-                                    onClick={this.props.deleteArticle.bind(this, search)}
+                                    onClick={this.props.deleteArticle.bind(this, savedArticle)}
                                     >
                                     Delete
                                 </button></span>

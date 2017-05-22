@@ -8,7 +8,6 @@ var helper ={
         var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key="
         + apiKey + "&q=" + search.topic + "&begin_date=" + search.startYear + "0101&end_date="+ search.endYear +"1231";
         return axios.get(queryURL).then(function(response){
-            console.log(response.data.response.docs)
             if(response.data.response.docs){
                 var results = [];
                 for(var i=0; i<5; i++){
@@ -21,6 +20,7 @@ var helper ={
                 return "";
         });
     },
+
     postArticle: function(result){
         return axios.post("/api", {
             title: result.headline.main,

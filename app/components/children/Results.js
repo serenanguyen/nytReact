@@ -16,7 +16,7 @@ var Results = React.createClass({
                         return (
                         <div key={i}>
                             <p>
-                                <a href={result.web_url}>{result.headline.main}</a>
+                                <a href={result.web_url} target="_blank">{result.headline.main}</a>
                                 <br /> Publication Date: {result.pub_date}
                                 <span><button className="btn btn-primary btn-lg"
                                               type="button"

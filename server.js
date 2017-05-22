@@ -50,7 +50,7 @@ app.get("/api", function(req, res){
 app.post("/api", function(req,res){
     Article.create({
         title: req.body.title,
-        web_url: req.body.url,
+        url: req.body.url,
         date: Date.now()
     }, function(err){
         if(err){
