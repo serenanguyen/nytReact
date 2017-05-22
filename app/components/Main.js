@@ -9,10 +9,11 @@ var Saved = require("./children/Saved");
 var helpers = require("./utils/helpers");
 
 var Main = React.createClass({
+    // get initial state of components
     getInitialState: function() {
         return { search: [], results: [], saved: [] };
     },
-
+    // once the page renders, get saved articles
     componentDidMount: function(){
         helpers.getSaved().then(function(response){
             if(response !== this.state.saved){
@@ -21,16 +22,14 @@ var Main = React.createClass({
         }.bind(this));
     },
 
-
+    // when the component changes (search is submitted)
     componentDidUpdate: function(){
+        // run query
         helpers.runQuery(this.state.topic, this.state.startYear, this.state.endYear)
+            // if new results set results state to new results
             .then(function(data){
                 if(data !== this.state.results){
                     this.setState({results: data});
-
-                    helpers.getSaved().then(function(response){
-                        this.setState({saved: response.data});
-                    }.bind(this));
                 }
             }.bind(this));
     },
@@ -44,6 +43,39 @@ var Main = React.createClass({
         });
     },
 
+    // handling saving article
+    handleSave: function(saved){
+        // send saved article to db
+        helpers.postArticle(saved).then(function(){
+            // get array of saved articles and compare it to
+            // previous array, if different set state to new array
+            helpers.getSaved().then(function(newSave){
+                if(newSave !== this.state.saved){
+                  this.setState({
+                      saved: newSave.data
+                  });
+                }
+
+            }.bind(this))
+        }.bind(this));
+    },
+
+    // handling deleting saved article
+    deleteArticle: function(article){
+        // delete article from db
+        helpers.deleteArticle(article.title)
+            // then get array of saved and compare it to
+            // old array
+            .then(function(newSave){
+                helpers.getSaved().then(function(newSave){
+                  if(newSave !== this.state.saved){
+                    this.setState({
+                      saved: newSave.data
+                    });
+                  }
+                }.bind(this))
+            }.bind(this));
+    },
 
     render: function(){
         return (
@@ -58,11 +90,11 @@ var Main = React.createClass({
                 </div>
 
                 <div className="col-md-12">
-                    <Results results={this.state.results}/>
+                    <Results results={this.state.results} handleSave={this.handleSave}/>
                 </div>
 
                 <div className="col-md-12">
-                    <Saved saved={this.state.saved}/>
+                    <Saved saved={this.state.saved} deleteArticle={this.deleteArticle}/>
                 </div>
 
             </div>

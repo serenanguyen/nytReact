@@ -2,38 +2,6 @@ var React = require("react");
 var helpers = require("../utils/helpers");
 
 var Saved = React.createClass({
-
-    getInitialState: function(){
-        return {
-            savedArticles: []
-        }
-    },
-
-    componentDidUpdate: function(){
-        // helpers.getSaved()
-        //     .then(function(articleData){
-        //         if(articleData !== this.state.savedArticles){
-        //             this.setState({
-        //                 savedArticles: articleData.data
-        //             });
-        //         }
-        //     }.bind(this));
-        console.log("change in save")
-    },
-
-
-    deleteArticle: function(article){
-        helpers.deleteArticle(article.title)
-            .then(function(data){
-                helpers.getSaved()
-                    .then(function(articleData){
-                        this.setState({
-                            savedAticles: articleData.data
-                        });
-                    }.bind(this))
-            }.bind(this))
-    },
-
     render: function(){
         return (
             <div className="panel panel-default">
@@ -47,7 +15,7 @@ var Saved = React.createClass({
                                 <p>{search.title}</p>
                                 <span><button className="btn btn-primary btn-lg"
                                     type="button"
-                                    onClick={this.deleteArticle.bind(this, search)}
+                                    onClick={this.props.deleteArticle.bind(this, search)}
                                     >
                                     Delete
                                 </button></span>
