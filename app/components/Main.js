@@ -83,8 +83,8 @@ var Main = React.createClass({
                 <div className="jumbotron">
                     <h1>NYT REACT</h1>
                     <h3>Search and Annotate Articles</h3>
-                    <a href="#/saved" className="btn btn-primary btn-lg">Saved Articles</a>
-                    <a href="#/search" className="btn btn-primary btn-lg">Search</a>
+                    {/*<a href="#/saved" className="btn btn-primary btn-lg">Saved Articles</a>*/}
+                    {/*<a href="#/search" className="btn btn-primary btn-lg">Search</a>*/}
                 </div>
 
                 <div className="col-md-12">
